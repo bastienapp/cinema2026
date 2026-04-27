@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 Pour qu'une entité fonctionne, il faut que ce soit un Java Bean
 
 Java Bean :
-- propriétés privées
+- attributs privées
 - constructeur vide
 - getters et setters (bien formés)
 - serializable : transformé en texte, ou reconstruit en objet à partir de texte
@@ -48,11 +48,11 @@ public class MovieEntity {
         this.duration = duration;
     }
 
-    private Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    private void setId(Long newId) {
+    public void setId(Long newId) {
         this.id = newId;
     }
 
@@ -79,5 +79,12 @@ public class MovieEntity {
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
+
+    @Override
+    public String toString() {
+        return "MovieEntity [id=" + id + ", title=" + title + ", description=" + description + ", duration=" + duration
+                + "]";
+    }
+
 
 }

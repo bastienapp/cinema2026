@@ -1,12 +1,15 @@
 package co.simplon.cinema2026.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.cinema2026.entity.MovieEntity;
+import co.simplon.cinema2026.repository.MovieRepository;
+
 
 /*
 Méthodes HTTP :
@@ -22,13 +25,34 @@ Méthodes HTTP :
 // avec cette annotation, je sais que je ne vais faire que les endpoints d'API
 public class MovieController {
 
+    private final MovieRepository movieRepository;
+
+    // injection de dépendance
+    public MovieController(MovieRepository movieRepositoryInjected) {
+        this.movieRepository = movieRepositoryInjected;
+    }
+
     @GetMapping("/movies")
     public List<MovieEntity> getAllMovies() {
-        List<MovieEntity> movieList = new ArrayList<>();
-        movieList.add(new MovieEntity("Alien", "Ça fait peur", 128));
-        movieList.add(new MovieEntity("Retour vers le futur", "C'est sympa", 155));
 
-        return movieList;
+        return this.movieRepository.findAll();
+    }
+
+    /*
+    json: {
+        "title": "",
+        "description": "",
+        "duration": 0,
+    } -> Jackson : convertit du JSON en Objet
+    */
+
+    @PostMapping("/movies")
+    public MovieEntity createMovie(@RequestBody MovieEntity movie) {
+
+        // TODO : service et implémentation
+        MovieEntity movieSaved = this.movieRepository.save(movie);
+        // dans le corps de la réponse, on lui renvoi l'élément enregistré
+        return movieSaved;
     }
 
 }

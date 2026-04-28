@@ -21,13 +21,12 @@ protected : accès par les classes enfants (qui héritent)
 public class MovieService {
 
     private final MovieRepository movieRepository;
-
+    // injection de dépendance du MovieRepository
     public MovieService(MovieRepository movieRepositoryInjected) {
         this.movieRepository = movieRepositoryInjected;
     }
 
     public List<MovieEntity> findAllMovies() {
-
         return this.movieRepository.findAll();
     }
 

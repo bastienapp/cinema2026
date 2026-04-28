@@ -12,7 +12,7 @@ public class Cinema2026Application {
 
 		// persistance des données
 		// - entitées : représentent les tables
-		// - repository : échangent entre les entitées et la base de données (CRUD)
+		// - repository : échanges entre les entitées et la base de données (CRUD)
 
 		SpringApplication.run(Cinema2026Application.class, args);
 	}

@@ -1,6 +1,7 @@
 package co.simplon.cinema2026.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,12 @@ public class MovieService {
 
     public List<MovieEntity> findMoviesByTitle(String title) {
         return this.movieRepository.findByTitleIgnoreCaseContaining(title);
+    }
+
+    public Optional<MovieEntity> findMovieById(Long id) {
+        // optional : si je n'ai pas de film avec cet identifiant, j'ai pas d'erreur
+        // à la place j'ai : null
+        return this.movieRepository.findById(id);
     }
 
     public MovieEntity createMovie(MovieEntity movie) {

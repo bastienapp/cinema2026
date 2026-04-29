@@ -1,16 +1,19 @@
 package co.simplon.cinema2026.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.cinema2026.entity.MovieEntity;
 import co.simplon.cinema2026.service.MovieService;
+
 
 
 /*
@@ -39,6 +42,18 @@ public class MovieController {
 
         return this.movieService.findAllMovies();
     }
+
+    @GetMapping("/movies/{movieId}")
+    public ResponseEntity<Optional<MovieEntity>> getMovieById(@PathVariable Long movieId) {
+        Optional<MovieEntity> optional = this.movieService.findMovieById(movieId);
+        if (optional.isEmpty()) {
+            // retourner une erreur 404
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(optional, HttpStatus.OK);
+        }
+    }
+
 
     // TODO : faire le endpoint pour récupérer les films par leurs titres
     // Séparer l'interface de l'implémentation
